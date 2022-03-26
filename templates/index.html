@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <title>Mod1</title>
+    <style>
+	img {
+  	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+	width: 35%
+	}
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript">
+      var intervalID = setInterval(update_values,500);
+      
+        function update_values() {
+              $.getJSON("{{ url_for('display_EAR') }}",        
+                function(data) {
+                  console.log(data);
+                  $('#result').html(data.result);
+              });
+            
+              $.getJSON("{{ url_for('display_MAR') }}",         
+                function(data) {
+                  console.log(data);
+                  $('#resultMAR').html(data.result);
+              });
+
+          };
+          
+          function stopTextColor() {
+            clearInterval(intervalID);
+          }
+          
+    </script>
+  </head>
+  <body>
+    <h1 align="center">Drowsiness Detection</h1>
+    <img id="bg" class="center" src="{{ url_for('video_feed') }}">
+    <p id='result'></p>
+    <p id='resultMAR' style='background-color: aqua; font-weight: bold;'></p>
+    
+
+  </body>
+</html>
